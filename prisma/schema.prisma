@@ -11,12 +11,18 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
   name     String?
-  password String?
-  role     Role?    @relation(fields: [roleId], references: [id])
+  password Password?
+  role     Role?     @relation(fields: [roleId], references: [id])
   roleId   Int?
+}
+
+model Password {
+  hash   String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int    @unique
 }
 
 model Role {

@@ -1,17 +1,14 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client'
-
+import cors from 'cors'
+import bodyParser from 'body-parser';
+import UsersRouter from './routes/users'
 const app = express();
 const port = 3000
 
-const prisma = new PrismaClient();
+app.use(cors()); // support cors for frontend development
+app.use(bodyParser.json()); // to support JSON-encoded bodies
 
-app.get('/', async (req, res) => {
-    const allUsers = await prisma.user.findMany()
-    console.log(allUsers)
-        res.json([allUsers]);
-
-});
+app.use('/users', UsersRouter)
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
