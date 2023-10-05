@@ -37,3 +37,10 @@ model Permission {
   name String
   role Role[]
 }
+
+model Product {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  price       Float
+}

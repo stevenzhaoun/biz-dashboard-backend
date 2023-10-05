@@ -50,7 +50,7 @@ export async function getRole(req: Request<GetRoleParams>, res: Response<Role>) 
 
 export async function createRole(req: Request<any, any, CreateRoleBody>, res: Response<Role>) {
     const { name, permissions } = req.body
-    console.log('createRole', name, permissions)
+
     const role = await prisma.role.create({
         data: {
             name,
