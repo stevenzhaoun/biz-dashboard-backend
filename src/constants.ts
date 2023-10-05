@@ -8,3 +8,6 @@ export const PERMISSIONS = {
     VIEW_ORDERS: 7,
     EDIT_ORDERS: 8,
 }
+
+export type PERMISSION_KEYS = keyof typeof PERMISSIONS;
+export type PERMISSION_VALUES = typeof PERMISSIONS[PERMISSION_KEYS];

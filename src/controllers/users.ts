@@ -94,10 +94,15 @@ export async function updateUser(req: Request<UpdateUserParams, any, UpdateUserB
 }
 
 export async function deleteUser(req: Request<DeleteUserParams>, res: Response) {
-    await prisma.user.delete({
-        where: {
-            id: Number(req.params.id)
-        }
-    })
-    return res.send(`Successful delete user ${req.params.id}`)
+    try {
+
+        await prisma.user.delete({
+            where: {
+                id: Number(req.params.id)
+            }
+        })
+        return res.send(`Successful delete user ${req.params.id}`)
+    } catch (e: any) {
+        return res.status(500).send(e?.meta?.cause || 'Something went wrong')
+    }
 }

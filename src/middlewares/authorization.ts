@@ -8,23 +8,16 @@ export const authorize =  (targetPermissions: number[]) => async (req: any, res:
 
     const userId = req.user.id
 
-    const userPermissions = await prisma.permission.findMany({
+    const userPermissions = await prisma.user.findUnique({
         where: {
-            role: {
-                some: {
-                    user: {
-                        some: {
-                            id: userId
-                        }
-                    }
-                }
-            }
-            
-        },
-        include: {
-            
+            id: userId
         }
-    })
+    }).role().permissions()
+
+    if(!userPermissions) {
+        return res.status(403).send('Unauthorized')
+    }
+
     if(!userPermissions.map(p => p.id).some(p => targetPermissions.includes(p))) {
         return res.status(404).send('Unauthorized')
     }
