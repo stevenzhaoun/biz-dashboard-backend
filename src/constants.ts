@@ -1,0 +1,10 @@
+export const PERMISSIONS = {
+    VIEW_USERS: 1,
+    EDIT_USERS: 2,
+    VIEW_ROLES: 3,
+    EDIT_ROLES: 4,
+    VIEW_PRODUCTS: 5,
+    EDIT_PRODUCTS: 6,
+    VIEW_ORDERS: 7,
+    EDIT_ORDERS: 8,
+}

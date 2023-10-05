@@ -35,5 +35,5 @@ model Role {
 model Permission {
   id   Int    @id @default(autoincrement())
   name String
-  Role Role[]
+  role Role[]
 }
