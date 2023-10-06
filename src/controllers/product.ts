@@ -27,7 +27,13 @@ interface UpdateProductBody {
 }
 
 export async function getProducts(req: Request, res: Response<Product[]>) {
-    const roles = await prisma.product.findMany()
+    const roles = await prisma.product.findMany({
+        orderBy: [
+            {
+                id: 'asc'
+            }
+        ]
+    })
     return res.json(roles)
 }
 
