@@ -52,7 +52,7 @@ export async function getUsers(req: Request, res: Response<User[]>) {
 
 export async function signup(req: Request<any, any, RegisterUserBody>, res: Response<User>) {
 
-    const { email, name, roleId, password } = req.body
+    const { email, name, roleId } = req.body
     const user = await prisma.user.create({
         data: {
             email,
@@ -64,7 +64,7 @@ export async function signup(req: Request<any, any, RegisterUserBody>, res: Resp
             },
             password: {
                 create: {
-                    hash: hashSync(password, SALT_ROUNDS)
+                    hash: hashSync('123456', SALT_ROUNDS)
                 }
             }
         }

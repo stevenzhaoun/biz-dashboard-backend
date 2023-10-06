@@ -4,10 +4,16 @@ import { prisma } from '../client';
 import { compareSync } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { config } from '../config';
+import { hashSync } from 'bcryptjs'
 
 
 interface LoginBody {
     email: string;
+    password: string;
+}
+
+interface UpdatePasswordBody {
+    userId: number;
     password: string;
 }
 
@@ -49,4 +55,21 @@ export async function login(req: Request<unknown, unknown, LoginBody>, res: Resp
     }
 
     return res.status(200).json({ user: userResp })
+}
+
+export async function updatePassword(req: Request<unknown, unknown, UpdatePasswordBody>, res: Response) {
+    const { userId, password } = req.body
+
+    await prisma.password.update({
+        where: {
+            userId: userId
+        },
+        include: {
+            user: true
+        },
+        data: {
+            hash: hashSync(password)
+        }
+    })
+    return res.status(200).send('Update success')
 }
