@@ -45,7 +45,7 @@ export async function login(req: Request<unknown, unknown, LoginBody>, res: Resp
 
     const userResp = {
         ...userData,
-        token
+        token: `Bearer ${token}`
     }
 
     return res.status(200).json({ user: userResp })
